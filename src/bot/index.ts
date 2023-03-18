@@ -63,7 +63,6 @@ export class WhatsAppBot {
     );
   };
 }
-
 */
 
 import { create, Message, Whatsapp, CreateOptions } from "venom-bot";
