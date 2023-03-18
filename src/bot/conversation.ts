@@ -1,4 +1,4 @@
-import { Whatsapp, Message } from "venom-bot";
+import { Whatsapp, Message,Action, RequestContext, Response,  } from "venom-bot";
 
 import { SimulateTyping } from "../utils/SimulateTyping";
 import { SimulateRecordingAudio } from "../utils/SimulateRecordingAudio";
