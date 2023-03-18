@@ -28,11 +28,11 @@ export async function Conversation(client: Whatsapp, message: Message) {
     case 1:
       await handleAnswer(message);
       break;
-    
+
     case 2:
       await handleCountry(message);
       break;
-   
+
     case 3:
       await handleState(message);
       break;
@@ -58,12 +58,18 @@ export async function Conversation(client: Whatsapp, message: Message) {
   }
 
   //async function askLocation() {
-   // conversationState.step = 3;
+  // conversationState.step = 3;
   //}
 
   async function handleCountry(message: any) {
     conversationState.country = message.body;
     conversationState.step = 3;
+    await client.sendButtons(
+      message.chatId,
+      "Selecione uma opção:",
+      MenuButtons,
+      "Qual das situações você se encontra?"
+    );
     await client.sendText(
       message.from,
       `Você mora no país ${conversationState.country}. Qual é o seu estado?`
@@ -71,8 +77,8 @@ export async function Conversation(client: Whatsapp, message: Message) {
   }
 
   //async function askState() {
- //   conversationState.step = 5;
- // }
+  //   conversationState.step = 5;
+  // }
 
   async function handleState(message: any) {
     conversationState.state = message.body;
@@ -100,7 +106,7 @@ export class Conversation1 {
 
   private senderName;
   private senderProduct;
-  private bb
+  private bb;
 
   constructor(client: Whatsapp, message: Message) {
     this.client = client;
@@ -142,6 +148,7 @@ export class Conversation1 {
     switch (this.state) {
       case "start":
         //await this.startName(this.message.body);
+
         await this.sendMessage("Olá! Qual é o seu nome?");
         this.state = "name";
         break;
