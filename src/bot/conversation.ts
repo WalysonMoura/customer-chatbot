@@ -70,8 +70,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
       MenuButtons,
       "Qual das situações você se encontra?"
     );
-    sendButtons('000000000000@c.us', 'Title', buttons, 'Description')
-    await client.sendText(
+     await client.sendText(
       message.from,
       `Você mora no país ${conversationState.country}. Qual é o seu estado?`
     );
