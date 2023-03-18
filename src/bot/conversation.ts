@@ -100,6 +100,7 @@ export class Conversation1 {
 
   private senderName;
   private senderProduct;
+  private bb
 
   constructor(client: Whatsapp, message: Message) {
     this.client = client;
