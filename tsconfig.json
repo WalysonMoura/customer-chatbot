@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "lib": ["es6"],
+    "target": "ES2020",
+    "module": "node16",
+    "outDir": "./dist",
+    "sourceMap": true,
+    "strict": false,
+    "esModuleInterop": true,
+    
+    "moduleResolution": "node",
+
+//"allowJs": true,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+
+    /* Type Checking */
+
+    "strictPropertyInitialization": false /* Check for class properties that are declared but not set in the constructor. */,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
