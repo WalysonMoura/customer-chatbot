@@ -66,10 +66,11 @@ export async function Conversation(client: Whatsapp, message: Message) {
     conversationState.step = 3;
     await client.sendButtons(
       message.chatId,
-      "Selecione uma opção:",
+      "Selecione uma opção",
       MenuButtons,
       "Qual das situações você se encontra?"
     );
+    sendButtons('000000000000@c.us', 'Title', buttons, 'Description')
     await client.sendText(
       message.from,
       `Você mora no país ${conversationState.country}. Qual é o seu estado?`
