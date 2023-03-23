@@ -99,7 +99,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
   }
 
   async function askNlpManagerConversation(message: Message) {
-    const nlpResponse = await NlpManagerConversation(message.body);
+    const nlpResponse = await nlpManagerConversation(message.body);
     await client.sendText(message.from, nlpResponse);
   }
 }
