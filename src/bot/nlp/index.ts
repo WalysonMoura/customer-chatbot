@@ -1,4 +1,6 @@
 import { NlpManager } from "node-nlp";
+import { addDocuments } from "./addDocuments";
+import { addAnswers } from "./addAnswers";
 
 const nlpManager = new NlpManager({ languages: ["pt"], forceNER: true });
 
@@ -8,7 +10,7 @@ await addAnswers(nlpManager);
 export async function nlpManagerConversation(senderMessage: string) {
   await nlpManager.train();
   await nlpManager.save();
-  
+
   const response = await nlpManager.process("pt", senderMessage.toLowerCase());
   return response.answer;
 }
