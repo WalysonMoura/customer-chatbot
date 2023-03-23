@@ -1,4 +1,4 @@
-import { Whatsapp, Message  } from "venom-bot";
+import { Whatsapp, Message } from "venom-bot";
 
 import { SimulateTyping } from "../utils/SimulateTyping";
 import { SimulateRecordingAudio } from "../utils/SimulateRecordingAudio";
@@ -40,6 +40,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
       await handleCity(message);
       break;
     default:
+      await askNlpManagerConversation(message);
       break;
   }
 
@@ -48,7 +49,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
     await client.sendText(message.from, "Digite sua resposta:");
   }
 
-  async function handleAnswer(message: any) {
+  async function handleAnswer(message: Message) {
     conversationState.answer = message.body;
     conversationState.step = 2;
     await client.sendText(
@@ -61,7 +62,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
   // conversationState.step = 3;
   //}
 
-  async function handleCountry(message: any) {
+  async function handleCountry(message: Message) {
     conversationState.country = message.body;
     conversationState.step = 3;
     await client.sendButtons(
@@ -71,18 +72,13 @@ export async function Conversation(client: Whatsapp, message: Message) {
       "Qual das situações você se encontra?"
     );
 
-    
     await client.sendText(
       message.from,
       `Você mora no país ${conversationState.country}. Qual é o seu estado?`
     );
   }
 
-  //async function askState() {
-  //   conversationState.step = 5;
-  // }
-
-  async function handleState(message: any) {
+  async function handleState(message: Message) {
     conversationState.state = message.body;
     conversationState.step = 4;
     await client.sendText(
@@ -91,84 +87,18 @@ export async function Conversation(client: Whatsapp, message: Message) {
     );
   }
 
-  async function handleCity(message: any) {
+  async function handleCity(message: Message) {
     const city = message.body;
     await client.sendText(
       message.from,
       `Você mora na cidade de ${city}. Obrigado por conversar comigo!`
     );
-    conversationState.step = 0;
-  }
-}
-
-export class Conversation1 {
-  private client: Whatsapp;
-  private message: Message;
-  state: string;
-
-  private senderName;
-  private senderProduct;
-  private bb;
-
-  constructor(client: Whatsapp, message: Message) {
-    this.client = client;
-    this.message = message;
-    this.state;
+    // conversationState.step = 0;
   }
 
-  async startName(name: string) {
-    await this.sendMessage("Olá! Qual é o seu nome?");
-    this.state = "name";
-  }
-
-  async handleName(name: string) {
-    await this.sendMessage(`Oi, ${name}! Em qual país você mora?`);
-    this.senderName = name;
-    this.state = "country";
-  }
-
-  async handleCountry(country: string) {
-    await this.sendMessage(`Legal! Em qual estado você mora em ${country}?`);
-    this.state = "state";
-  }
-
-  async handleState(state: string) {
-    await this.sendMessage(`Bacana! E em qual cidade você mora em ${state}?`);
-    this.state = "city";
-  }
-
-  async handleCity(city: string) {
-    await this.sendMessage(`Obrigado por responder. Até a próxima!`);
-    this.state = "end";
-  }
-
-  async sendMessage(text: string) {
-    await this.client.sendText(this.message.from, text);
-  }
-
-  async start() {
-    switch (this.state) {
-      case "start":
-        //await this.startName(this.message.body);
-
-        await this.sendMessage("Olá! Qual é o seu nome?");
-        this.state = "name";
-        break;
-      case "name":
-        await this.handleName(this.message.body);
-        break;
-      case "country":
-        await this.handleCountry(this.message.body);
-        break;
-      case "state":
-        await this.handleState(this.message.body);
-        break;
-      case "city":
-        await this.handleCity(this.message.body);
-        break;
-      default:
-        break;
-    }
+  async function askNlpManagerConversation(message: Message) {
+    const nlpResponse = await NlpManagerConversation(message.body);
+    await client.sendText(message.from, nlpResponse);
   }
 }
 

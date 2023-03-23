@@ -27,7 +27,7 @@ export class WhatsAppBot {
     // await this.client.close();
   }
 
-  private handleMessage = async (message: Message) => {
+      private handleMessage = async (message: Message) => {
     const senderNumber = message.from;
 
     if (!message.isGroupMsg) {
