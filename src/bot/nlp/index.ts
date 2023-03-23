@@ -5,7 +5,7 @@ const nlpManager = new NlpManager({ languages: ["pt"], forceNER: true });
 await addDocuments(nlpManager);
 await addAnswers(nlpManager);
 
-export async function NlpManagerConversation(senderMessage: string) {
+export async function nlpManagerConversation(senderMessage: string) {
   await nlpManager.train();
   await nlpManager.save();
   

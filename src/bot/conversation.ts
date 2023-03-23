@@ -5,6 +5,8 @@ import { SimulateRecordingAudio } from "../utils/SimulateRecordingAudio";
 import { getProductName, getProduto } from "../utils/productInformation";
 import { customerNameValidation } from "../utils/customerNameValidation";
 
+import { nlpManagerConversation } from "./nlp/";
+
 import { getButtonProducts } from "./templates/ButtonProducts";
 import { MenuButtons } from "./templates/MenuButtons";
 
