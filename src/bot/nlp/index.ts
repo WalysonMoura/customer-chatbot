@@ -4,10 +4,9 @@ import { addAnswers } from "./addAnswers";
 
 const nlpManager = new NlpManager({ languages: ["pt"], forceNER: true });
 
-await addDocuments(nlpManager);
-await addAnswers(nlpManager);
-
 export async function nlpManagerConversation(senderMessage: string) {
+  await addDocuments(nlpManager);
+  await addAnswers(nlpManager);
   await nlpManager.train();
   await nlpManager.save();
 
