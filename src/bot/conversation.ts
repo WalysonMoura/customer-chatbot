@@ -25,7 +25,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
 
   switch (step) {
     case 0:
-      await askQuestion();
+      await askNlpManagerConversation(message);
       break;
     case 1:
       await handleAnswer(message);
@@ -60,9 +60,6 @@ export async function Conversation(client: Whatsapp, message: Message) {
     );
   }
 
-  //async function askLocation() {
-  // conversationState.step = 3;
-  //}
 
   async function handleCountry(message: Message) {
     conversationState.country = message.body;
