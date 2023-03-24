@@ -57,29 +57,47 @@ export async function Conversation(client: Whatsapp, message: Message) {
     } = message;
 
     if (senderMessage.includes("Olá, gostei muito do")) {
-      await client.sendButtons(
-        senderNumber,
-        "Selecione uma opção:",
-        MenuButtons,
-        "Qual das situações você se encontra?"
-      );
-
       await SimulateTyping(client, senderNumber, 3);
-      await client.sendText(remetenteId, "Olá, tudo bem? Meu nome é *Walyson*");
+      await client.sendText(senderId, "Olá, tudo bem? Meu nome é *Walyson*");
 
       await SimulateTyping(client, senderNumber, 1);
       await client.sendText(
-        remetenteId,
-        "sou responsável pelas vendas da *Wizen Shop* 😊"
+        senderId,
+        "sou responsável pelas vendas da *Wizen* 😊"
       );
-      
-      checkProductName = await getProductName(remetenteMessage);
-      await SimulateTyping(client, remetenteNumber, 2);
+
+      // Nome do Produto
+      conversationState.senderProduct = await getProductName(senderMessage);
+
+      await SimulateTyping(client, senderNumber, 2);
       await client.sendText(
         senderId,
         `Recebi uma notificação de que você se interessou pelo nosso produto ${checkProductName} 🥰❤`
       );
+      await SimulateTyping(client, senderNumber, 3);
+      await client.sendText(
+        senderId,
+        "Mas antes de começarmos, gostaria de saber *o seu nome*"
+      );
+      await SimulateTyping(client, senderNumber, 1);
+      await client.sendText(
+        senderId,
+        "para que possa me dirigir a você de maneira mais *personalizada* 😉"
+      );
+      await client.sendText(senderId, "Qual o seu Nome?");
+    }
+
+    if (
+      senderMessage.includes(
+        "Olá, gostei muito de um produto das suas redes sociais!. Quero saber mais sobre ele!"
+      )
+    ) {
       await SimulateTyping(client, remetenteNumber, 3);
+      await client.sendText(
+        remetenteId,
+        "Olá, tudo bem? Vi que você se interessou pelo nosso produto nas nossas redes sociais😊."
+      );
+      await SimulateTyping(client, remetenteNumber, 2);
       await client.sendText(
         remetenteId,
         "Mas antes de começarmos, gostaria de saber *o seu nome*"
