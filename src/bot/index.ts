@@ -105,7 +105,7 @@ export class WhatsAppBot {
         case "chat":
           await this.handleChatMessage(senderNumber, message);
           break;
-        case "audio":
+        case "ptt":
           await this.handleAudioMessage(senderNumber, message);
           break;
         default:

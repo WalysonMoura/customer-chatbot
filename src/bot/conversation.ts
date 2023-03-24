@@ -21,11 +21,12 @@ interface ConversationState {
 const conversationState: ConversationState = { step: 0 };
 
 export async function Conversation(client: Whatsapp, message: Message) {
-  const { step, answer, country, state } = conversationState;
+  const { step, answer, country, state, senderName, senderProduct } =
+    conversationState;
 
   switch (step) {
     case 0:
-      await askNlpManagerConversation(message);
+      await askQuestion(message);
       break;
     case 1:
       await handleAnswer(message);
@@ -46,9 +47,50 @@ export async function Conversation(client: Whatsapp, message: Message) {
       break;
   }
 
-  async function askQuestion() {
+  async function askQuestion(message: Message) {
     conversationState.step = 1;
-    await client.sendText(message.from, "Digite sua resposta:");
+
+    const {
+      from: senderId,
+      body: senderMessage,
+      chatId: senderNumber,
+    } = message;
+
+    if (senderMessage.includes("Olá, gostei muito do")) {
+      await client.sendButtons(
+        senderNumber,
+        "Selecione uma opção:",
+        MenuButtons,
+        "Qual das situações você se encontra?"
+      );
+
+      await SimulateTyping(client, senderNumber, 3);
+      await client.sendText(remetenteId, "Olá, tudo bem? Meu nome é *Walyson*");
+
+      await SimulateTyping(client, senderNumber, 1);
+      await client.sendText(
+        remetenteId,
+        "sou responsável pelas vendas da *Wizen Shop* 😊"
+      );
+      
+      checkProductName = await getProductName(remetenteMessage);
+      await SimulateTyping(client, remetenteNumber, 2);
+      await client.sendText(
+        senderId,
+        `Recebi uma notificação de que você se interessou pelo nosso produto ${checkProductName} 🥰❤`
+      );
+      await SimulateTyping(client, remetenteNumber, 3);
+      await client.sendText(
+        remetenteId,
+        "Mas antes de começarmos, gostaria de saber *o seu nome*"
+      );
+      await SimulateTyping(client, remetenteNumber, 1);
+      await client.sendText(
+        remetenteId,
+        "para que possa me dirigir a você de maneira mais *personalizada* 😉"
+      );
+      await client.sendText(remetenteId, "Qual o seu Nome?");
+    }
   }
 
   async function handleAnswer(message: Message) {
@@ -59,7 +101,6 @@ export async function Conversation(client: Whatsapp, message: Message) {
       `Sua resposta foi: ${conversationState.answer}. Em qual país você mora?`
     );
   }
-
 
   async function handleCountry(message: Message) {
     conversationState.country = message.body;
