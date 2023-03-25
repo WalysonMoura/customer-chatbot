@@ -82,7 +82,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
       await client.sendText(senderId, "Qual o seu Nome?");
     }
 
-    if (senderMessage.includes("Olá, gostei muito do")) {
+    if (senderMessage.includes("Olá, gostei muito do") && senderMessage.includes(".Quero saber mais sobre!")) {
       conversationState.step = "askSenderName";
 
       await SimulateTyping(client, senderNumber, 3);
