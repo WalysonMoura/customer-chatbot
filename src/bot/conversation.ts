@@ -81,10 +81,8 @@ export async function Conversation(client: Whatsapp, message: Message) {
       );
       await client.sendText(senderId, "Qual o seu Nome?");
     }
-    const checkName = senderMessage.match(/Olá, gostei muito do (.+)/i);
-    if (
-      checkName && checkName[1]
-    ) {
+    const checkMessage = senderMessage.match(/Olá, gostei muito do (.+)/i);
+    if (checkMessage && checkMessage[1]) {
       conversationState.step = "askSenderName";
 
       await SimulateTyping(client, senderNumber, 3);
