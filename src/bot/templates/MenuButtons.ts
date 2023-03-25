@@ -1,6 +1,18 @@
 const buttons = [
   {
     "buttonText": {
+      "displayText": "Text of Button 1"
+      }
+    },
+  {
+    "buttonText": {
+      "displayText": "Text of Button 2"
+      }
+    }
+  ]
+    /*
+  {
+    "buttonText": {
       "displayText": "Quero conhecer mais sobre um Produto!",
     },
     "type": "message",
@@ -21,7 +33,7 @@ const buttons = [
       "buttons": buttons,
   }
 
-/*
+
 
  {
       "buttonId": "1",
