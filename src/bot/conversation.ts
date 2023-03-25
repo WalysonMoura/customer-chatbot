@@ -94,6 +94,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
         .catch((error) => {
           console.error("Error:", error);
         });
+console.log(senderNumber);
 
       await SimulateTyping(client, senderNumber, 1);
       await client.sendText(
