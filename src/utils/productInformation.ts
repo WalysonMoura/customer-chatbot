@@ -1,6 +1,6 @@
-import { products } from "./products";
+import { products,IProduct } from "./products";
 
-function getProductLink(productName) {
+export async function getProductLink(productName) {
   // Encontrar o objeto do produto com o nome correto
   const product = products.find(
     (product) => product.name.toLowerCase() === productName.toLowerCase()
@@ -35,7 +35,7 @@ export async function getAllProductsNames() {
   return productNames;
 }
 
-export async function getProduct(nome) {
+export async function getProduct(nome): Promise<IProduct> {
   for (let i = 0; i < products.length; i++) {
     if (products[i].name.toLowerCase() === nome.toLowerCase()) {
       return products[i];
