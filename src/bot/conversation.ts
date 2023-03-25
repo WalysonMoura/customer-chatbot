@@ -73,7 +73,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
         senderId,
         "Mas antes de começarmos, gostaria de saber *o seu nome*"
       );
-      await SimulateTyping(client, remetenteNumber, 1);
+      await SimulateTyping(client, senderNumber, 1);
       await client.sendText(
         senderId,
         "para que possa me dirigir a você de maneira mais *personalizada* 😉"
