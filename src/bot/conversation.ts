@@ -81,8 +81,10 @@ export async function Conversation(client: Whatsapp, message: Message) {
       );
       await client.sendText(senderId, "Qual o seu Nome?");
     }
-
-    if (senderMessage.includes("Olá, gostei muito do") && senderMessage.includes(".Quero saber mais sobre!")) {
+    const checkName = senderMessage.match(/Olá, gostei muito do (.+)/i);
+    if (
+      checkName && checkName[1]
+    ) {
       conversationState.step = "askSenderName";
 
       await SimulateTyping(client, senderNumber, 3);
@@ -113,11 +115,9 @@ export async function Conversation(client: Whatsapp, message: Message) {
         "para que possa me dirigir a você de maneira mais *personalizada* 😉"
       );
       await client.sendText(senderId, "Qual o seu Nome?");
+    } else {
+      await askNlpManagerConversation(message);
     }
-    else{
-      await askNlpManagerConversation(message)
-    }
-   
   }
 
   async function handleSenderName(message: Message) {
