@@ -115,7 +115,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
       await client.sendText(senderId, "Qual o seu Nome?");
     }
     else{
-      askNlpManagerConversation(message)
+      await askNlpManagerConversation(message)
     }
    
   }
