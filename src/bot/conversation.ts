@@ -59,6 +59,10 @@ export async function Conversation(client: Whatsapp, message: Message) {
       chatId: senderNumber,
     } = message;
 
+    await client.sendButtons(senderId,"Title", MenuButtons,"Description").catch(error => {
+      console.error('Error:', error);
+    });
+
     if (
       senderMessage ==
       "Olá, gostei muito de um produto das suas redes sociais!. Quero saber mais sobre ele!"
@@ -84,9 +88,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
     const checkMessage = senderMessage.match(/Olá, gostei muito do (.+)/i);
     if (checkMessage) {
       conversationState.step = "askSenderName";
-      await client.sendButtons(senderId,"Title", MenuButtons,"Description").catch(error => {
-        console.error('Error:', error);
-      });
+    
       await SimulateTyping(client, senderNumber, 3);
       await client.sendText(senderId, "Olá, tudo bem? Meu nome é *Walyson*");
 
