@@ -1,16 +1,16 @@
 export const MenuButtons = [
   {
-    "buttonText": {
-      "displayText": "Text of Button 1"
-      }
+    buttonText: {
+      displayText: "Text of Button 1",
     },
+  },
   {
-    "buttonText": {
-      "displayText": "Text of Button 2"
-      }
-    }
-  ]
-    /*
+    buttonText: {
+      displayText: "Text of Button 2",
+    },
+  },
+];
+/*
   {
     "buttonText": {
       "displayText": "Quero conhecer mais sobre um Produto!",
@@ -71,6 +71,3 @@ export const MenuButtons = [
     };
     await client.sendButtons(message.from, buttonMessage);
 */
- 
-
-   
