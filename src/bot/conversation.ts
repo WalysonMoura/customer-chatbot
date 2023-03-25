@@ -4,6 +4,7 @@ import { SimulateTyping } from "../utils/SimulateTyping";
 import { SimulateRecordingAudio } from "../utils/SimulateRecordingAudio";
 import { getProductName, getProduct } from "../utils/productInformation";
 import { customerNameValidation } from "../utils/customerNameValidation";
+import { IProducts } from "../utils/products";
 
 import { nlpManagerConversation } from "./nlp/";
 
@@ -16,7 +17,7 @@ interface ConversationState {
   country?: string;
   state?: string;
   senderName?: string;
-  senderProduct?: string;
+  senderProduct?: IProduct;
   senderProductName?: string;
 }
 const conversationState: ConversationState = { step: "initialize" };

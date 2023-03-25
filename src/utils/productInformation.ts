@@ -35,7 +35,7 @@ export async function getAllProductsNames() {
   return productNames;
 }
 
-export async function getProduct(nome): Promise<IProduct> {
+export async function getProduct(nome) {
   for (let i = 0; i < products.length; i++) {
     if (products[i].name.toLowerCase() === nome.toLowerCase()) {
       return products[i];
