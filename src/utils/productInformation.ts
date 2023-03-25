@@ -1,4 +1,4 @@
-import { products,IProduct } from "./products";
+import { products, IProduct } from "./products";
 
 export async function getProductLink(productName) {
   // Encontrar o objeto do produto com o nome correto
@@ -16,7 +16,7 @@ export async function getProductLink(productName) {
 }
 
 export async function getProductName(message) {
-  for (let i = 0; i < products.length; i++) {
+  /*for (let i = 0; i < products.length; i++) {
     const keywords = products[i].keywords;
     for (let j = 0; j < keywords.length; j++) {
       if (message.includes(keywords[j])) {
@@ -24,7 +24,16 @@ export async function getProductName(message) {
       }
     }
   }
-  return null; // retorna null se nenhum produto for encontrado
+  return null; // retorna null se nenhum produto for encontrado*/
+
+  for (const product of products) {
+    for (const keyword of product.keywords) {
+      if (message.toLowerCase().includes(keyword.toLowerCase())) {
+        return product.name;
+      }
+    }
+  }
+  return null;
 }
 
 export async function getAllProductsNames() {
