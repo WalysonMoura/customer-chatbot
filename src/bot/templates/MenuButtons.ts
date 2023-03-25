@@ -1,14 +1,24 @@
 export const MenuButtons = [
   {
-    "buttonText": {
-      "displayText": "Text of Button 1"
-      }
+    buttonText: {
+      displayText: 'Sim'
     },
-  {
-    "buttonText": {
-      "displayText": "Text of Button 2"
-      }
+    type: 'reply',
+    reply: {
+      id: 'sim',
+      title: 'Sim'
     }
+  },
+  {
+    buttonText: {
+      displayText: 'Não'
+    },
+    type: 'reply',
+    reply: {
+      id: 'nao',
+      title: 'Não'
+    }
+  }
 ];
 /*
   {
