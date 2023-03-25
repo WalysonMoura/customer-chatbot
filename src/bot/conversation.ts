@@ -59,9 +59,10 @@ export async function Conversation(client: Whatsapp, message: Message) {
       chatId: senderNumber,
     } = message;
 
-    await client.sendButtons(senderId,"Title", MenuButtons,"Description").catch(error => {
+    await client.sendButtons(senderNumber,"Title", MenuButtons,"Description").catch(error => {
       console.error('Error:', error);
     });
+console.log(senderNumber);
 
     if (
       senderMessage ==
