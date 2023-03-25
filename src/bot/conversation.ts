@@ -59,10 +59,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
       chatId: senderNumber,
     } = message;
 
-    await client.sendButtons(senderNumber,"Title", MenuButtons,"Description").catch(error => {
-      console.error('Error:', error);
-    });
-console.log(senderNumber);
+   
 
     if (
       senderMessage ==
@@ -89,9 +86,14 @@ console.log(senderNumber);
     const checkMessage = senderMessage.match(/Olá, gostei muito do (.+)/i);
     if (checkMessage) {
       conversationState.step = "askSenderName";
-    
+
       await SimulateTyping(client, senderNumber, 3);
       await client.sendText(senderId, "Olá, tudo bem? Meu nome é *Walyson*");
+      await client
+        .sendButtons(senderNumber, "Title", MenuButtons, "Description")
+        .catch((error) => {
+          console.error("Error:", error);
+        });
 
       await SimulateTyping(client, senderNumber, 1);
       await client.sendText(
