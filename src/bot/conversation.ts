@@ -9,7 +9,7 @@ import { IProduct } from "../utils/products";
 import { nlpManagerConversation } from "./nlp/";
 
 import { getButtonProducts } from "./templates/ButtonProducts";
-import { MenuButtons } from "./templates/MenuButtons.ts";
+import { MenuButtons } from "./templates/MenuButtons";
 
 interface ConversationState {
   step: string;
