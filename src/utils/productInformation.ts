@@ -16,16 +16,7 @@ export async function getProductLink(productName) {
 }
 
 export async function getProductName(message) {
-  /*for (let i = 0; i < products.length; i++) {
-    const keywords = products[i].keywords;
-    for (let j = 0; j < keywords.length; j++) {
-      if (message.includes(keywords[j])) {
-        return products[i].name;
-      }
-    }
-  }
-  return null; // retorna null se nenhum produto for encontrado*/
-
+  
   for (const product of products) {
     for (const keyword of product.keywords) {
       if (message.toLowerCase().includes(keyword.toLowerCase())) {

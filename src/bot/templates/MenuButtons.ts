@@ -1,6 +1,29 @@
+const buttons = [
+  {
+    "buttonText": {
+      "displayText": "Quero conhecer mais sobre um Produto!",
+    },
+    "type": "message",
+    "messageText": "produto"
+  },
+  {
+    "buttonText": {
+      "displayText": "Quero tirar uma Dúvida!😊",
+    },
+    "type": "message",
+    "messageText": "duvida"
+  }
+];
 
-  export const MenuButtons = [
-    {
+  export const MenuButtons = {
+    "contentText": "Você gostaria de receber mais informações?",
+      "footerText": "Responda com um dos botões abaixo",
+      "buttons": buttons,
+  }
+
+/*
+
+ {
       "buttonId": "1",
       "buttonText": {
         "displayText": "Quero conhecer mais sobre um Produto!"
@@ -12,10 +35,7 @@
         "displayText": "Quero tirar uma Dúvida!😊"
         }
       }
-    ]
-
-
- 
+      
     const buttons = [
       {
         "buttonText": {
@@ -38,5 +58,7 @@
       "buttons": buttons,
     };
     await client.sendButtons(message.from, buttonMessage);
+*/
+ 
 
    
