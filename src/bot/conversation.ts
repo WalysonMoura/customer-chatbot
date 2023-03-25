@@ -4,7 +4,7 @@ import { SimulateTyping } from "../utils/SimulateTyping";
 import { SimulateRecordingAudio } from "../utils/SimulateRecordingAudio";
 import { getProductName, getProduct } from "../utils/productInformation";
 import { customerNameValidation } from "../utils/customerNameValidation";
-import { IProducts } from "../utils/products";
+import { IProduct } from "../utils/products";
 
 import { nlpManagerConversation } from "./nlp/";
 
