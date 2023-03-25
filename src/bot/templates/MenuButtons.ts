@@ -1,4 +1,4 @@
-const buttons = [
+export const MenuButtons = [
   {
     "buttonText": {
       "displayText": "Text of Button 1"
