@@ -2,7 +2,7 @@ import { Whatsapp, Message } from "venom-bot";
 
 import { SimulateTyping } from "../utils/SimulateTyping";
 import { SimulateRecordingAudio } from "../utils/SimulateRecordingAudio";
-import { getProductName, getProduto } from "../utils/productInformation";
+import { getProductName, getProduct } from "../utils/productInformation";
 import { customerNameValidation } from "../utils/customerNameValidation";
 
 import { nlpManagerConversation } from "./nlp/";
@@ -11,52 +11,79 @@ import { getButtonProducts } from "./templates/ButtonProducts";
 import { MenuButtons } from "./templates/MenuButtons";
 
 interface ConversationState {
-  step: number;
+  step: string;
   answer?: string;
   country?: string;
   state?: string;
   senderName?: string;
   senderProduct?: string;
+  senderProductName?: string;
 }
-const conversationState: ConversationState = { step: 0 };
+const conversationState: ConversationState = { step: "initialize" };
 
 export async function Conversation(client: Whatsapp, message: Message) {
   const { step, answer, country, state, senderName, senderProduct } =
     conversationState;
 
   switch (step) {
-    case 0:
+    case "initialize":
       await askQuestion(message);
       break;
-    case 1:
-      await handleAnswer(message);
+
+    case "askSenderName":
+      await handleSenderName(message);
       break;
 
-    case 2:
-      await handleCountry(message);
+    case "askSenderNameAndProductName":
+      await handleSenderNameAndProductName(message);
       break;
 
-    case 3:
-      await handleState(message);
+    case "askProductName":
+      await handleProductName(message);
       break;
-    case 4:
-      await handleCity(message);
+
+    case "breakingObjections":
+      await handleBreakingObjections(message);
       break;
+
     default:
       await askNlpManagerConversation(message);
       break;
   }
 
   async function askQuestion(message: Message) {
-    conversationState.step = 1;
-
     const {
       from: senderId,
       body: senderMessage,
       chatId: senderNumber,
     } = message;
 
+    if (
+      senderMessage ==
+      "Olá, gostei muito de um produto das suas redes sociais!. Quero saber mais sobre ele!"
+    ) {
+      conversationState.step = "askSenderNameAndProductName";
+      await SimulateTyping(client, senderNumber, 3);
+      await client.sendText(
+        senderId,
+        "Olá, tudo bem? Vi que você se interessou pelo nosso produto nas nossas redes sociais😊."
+      );
+      await SimulateTyping(client, senderNumber, 2);
+      await client.sendText(
+        senderId,
+        "Mas antes de começarmos, gostaria de saber *o seu nome*"
+      );
+      await SimulateTyping(client, remetenteNumber, 1);
+      await client.sendText(
+        senderId,
+        "para que possa me dirigir a você de maneira mais *personalizada* 😉"
+      );
+      await client.sendText(senderId, "Qual o seu Nome?");
+    }
+
     if (senderMessage.includes("Olá, gostei muito do")) {
+      conversationState.step = "askSenderName";
+
       await SimulateTyping(client, senderNumber, 3);
       await client.sendText(senderId, "Olá, tudo bem? Meu nome é *Walyson*");
 
@@ -67,12 +94,12 @@ export async function Conversation(client: Whatsapp, message: Message) {
       );
 
       // Nome do Produto
-      conversationState.senderProduct = await getProductName(senderMessage);
+      conversationState.senderProductName = await getProductName(senderMessage);
 
       await SimulateTyping(client, senderNumber, 2);
       await client.sendText(
         senderId,
-        `Recebi uma notificação de que você se interessou pelo nosso produto ${checkProductName} 🥰❤`
+        `Recebi uma notificação de que você se interessou pelo nosso produto *${conversationState.senderProductName}* 🥰❤`
       );
       await SimulateTyping(client, senderNumber, 3);
       await client.sendText(
@@ -86,72 +113,85 @@ export async function Conversation(client: Whatsapp, message: Message) {
       );
       await client.sendText(senderId, "Qual o seu Nome?");
     }
+  }
 
-    if (
-      senderMessage.includes(
-        "Olá, gostei muito de um produto das suas redes sociais!. Quero saber mais sobre ele!"
-      )
-    ) {
-      await SimulateTyping(client, remetenteNumber, 3);
-      await client.sendText(
-        remetenteId,
-        "Olá, tudo bem? Vi que você se interessou pelo nosso produto nas nossas redes sociais😊."
+  async function handleSenderName(message: Message) {
+    conversationState.step = "breakingObjections";
+
+    const {
+      from: senderId,
+      body: senderMessage,
+      chatId: senderNumber,
+    } = message;
+
+    conversationState.senderName = await customerNameValidation(senderMessage);
+    conversationState.senderProduct = await getProduct(
+      conversationState.senderProductName
+    );
+    await SimulateTyping(client, senderNumber, 2);
+    await client.sendText(
+      message.from,
+      `Olá ${conversationState.senderName}.Excelente escolha! o ${conversationState.senderProductName}`
+    );
+  }
+
+  async function handleSenderNameAndProductName(message: Message) {
+    conversationState.step = "askProductName";
+
+    const {
+      from: senderId,
+      body: senderMessage,
+      chatId: senderNumber,
+    } = message;
+
+    conversationState.senderName = await customerNameValidation(senderMessage);
+
+    await SimulateTyping(client, senderNumber, 2);
+    await client.sendText(
+      senderId,
+      `Olá ${conversationState.senderName}!😊, Por favor digite o *NOME* produto que chamou sua atenção e deixe-me ajudá-lo a encontrá-lo!`
+    );
+  }
+
+  async function handleProductName(message: Message) {
+    conversationState.step = "breakingObjections";
+
+    const {
+      from: senderId,
+      body: senderMessage,
+      chatId: senderNumber,
+    } = message;
+
+    const productName = getProductName(senderMessage);
+
+    if (productName) {
+      conversationState.senderProductName = productName;
+      conversationState.senderProduct = await getProduct(
+        conversationState.senderProductName
       );
-      await SimulateTyping(client, remetenteNumber, 2);
+
       await client.sendText(
-        remetenteId,
-        "Mas antes de começarmos, gostaria de saber *o seu nome*"
+        senderId,
+        `Olá ${conversationState.senderName}.Excelente escolha! o ${conversationState.senderProduct}`
       );
-      await SimulateTyping(client, remetenteNumber, 1);
+    }
+
+    if (productName == null) {
       await client.sendText(
-        remetenteId,
-        "para que possa me dirigir a você de maneira mais *personalizada* 😉"
+        senderId,
+        `Desculpe ${conversationState.senderName}, não consegui identificar esse produto que você deseja. Por favor, escolha uma opção abaixo:`
       );
-      await client.sendText(remetenteId, "Qual o seu Nome?");
     }
   }
 
-  async function handleAnswer(message: Message) {
-    conversationState.answer = message.body;
-    conversationState.step = 2;
-    await client.sendText(
-      message.from,
-      `Sua resposta foi: ${conversationState.answer}. Em qual país você mora?`
-    );
-  }
+  async function handleBreakingObjections(message: Message) {
+    const {
+      from: senderId,
+      body: senderMessage,
+      chatId: senderNumber,
+    } = message;
 
-  async function handleCountry(message: Message) {
-    conversationState.country = message.body;
-    conversationState.step = 3;
-    await client.sendButtons(
-      message.chatId,
-      "Selecione uma opção",
-      MenuButtons,
-      "Qual das situações você se encontra?"
-    );
-
-    await client.sendText(
-      message.from,
-      `Você mora no país ${conversationState.country}. Qual é o seu estado?`
-    );
-  }
-
-  async function handleState(message: Message) {
-    conversationState.state = message.body;
-    conversationState.step = 4;
-    await client.sendText(
-      message.from,
-      `Você mora no estado ${conversationState.state}. Qual é a sua cidade?`
-    );
-  }
-
-  async function handleCity(message: Message) {
-    const city = message.body;
-    await client.sendText(
-      message.from,
-      `Você mora na cidade de ${city}. Obrigado por conversar comigo!`
-    );
-    // conversationState.step = 0;
+   
   }
 
   async function askNlpManagerConversation(message: Message) {
