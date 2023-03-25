@@ -1,24 +1,14 @@
 export const MenuButtons = [
   {
-    buttonText: {
-      displayText: "Sim",
+    "buttonText": {
+      "displayText": "Text of Button 1"
+      }
     },
-    type: 'reply',
-    reply: {
-      title: "Você escolheu SIM",
-      text: "Muito obrigado!",
-    }
-  },
   {
-    buttonText: {
-      displayText: "Não",
-    },
-    type: 'reply',
-    reply: {
-      title: "Você escolheu NÃO",
-      text: "Que pena! O que podemos fazer para melhorar?",
+    "buttonText": {
+      "displayText": "Text of Button 2"
+      }
     }
-  },
 ];
 /*
   {
