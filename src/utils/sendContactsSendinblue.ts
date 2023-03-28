@@ -15,7 +15,7 @@ import {
 const sendinblueAPIKey = process.env.SENDINBLUE_API_KEY;
 
 const sendinblueApiConfig = {
-  baseURL: sendinblueApi,
+  baseURL: sendinblueApi.defaults.baseURL,
   headers: {
     "api-key": sendinblueAPIKey,
     "Content-Type": "application/json",
