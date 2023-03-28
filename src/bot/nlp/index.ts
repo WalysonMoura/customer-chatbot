@@ -1,6 +1,6 @@
 import { NeuralNetwork } from "@nlpjs/neural";
-import { NlpManager } from 'node-nlp';
-
+import { Sentiment } from '@nlpjs/sentiment';
+import { NlpManager, ConversationContext } from "node-nlp";
 
 import { addDocuments } from "./addDocuments";
 import { addAnswers } from "./addAnswers";
@@ -11,10 +11,31 @@ const nlpManager = new NlpManager({
   forceNER: true,
 });
 
-export async function nlpManagerConversation(senderMessage: string) {
-  await addDocuments(nlpManager);
-  await addAnswers(nlpManager);
+// Adicionando o módulo de análise de sentimento
+const sentiment = new Sentiment();
+nlpManager.container.use(sentiment);
 
+// Ajustando a taxa de aprendizagem e número máximo de épocas
+nlpManager.addLanguage("pt");
+nlpManager.settings.learningRate = 0.01;
+nlpManager.settings.epochs = 500;
+
+export async function nlpManagerConversation(senderMessage: string) {
+  //await addDocuments(nlpManager);
+ // await addAnswers(nlpManager);
+
+  await nlpManager.loadCorpora([
+    {
+      locale: "pt",
+      name: "produto1",
+      sources: [{ filename: "corpus-produto1.json" }],
+    },
+    {
+      locale: "pt",
+      name: "produto2",
+      sources: [{ filename: "corpus-produto2.json" }],
+    },
+  ]);
   await nlpManager.train();
   await nlpManager.save();
 

@@ -1,0 +1,33 @@
+{
+  "intents": [
+    {
+      "tag": "comprar_produto",
+      "patterns": [
+        "quero comprar produto 1",
+        "gostaria de adquirir produto 1",
+        "quanto custa o produto 1?",
+        "como faço para comprar o produto 1?"
+      ],
+      "responses": [
+        "O produto 1 custa R$ 100,00. Você gostaria de finalizar a compra?"
+      ]
+    },
+    {
+      "tag": "avaliar_produto",
+      "patterns": [
+        "o produto 1 é bom?",
+        "alguém já comprou o produto 1?",
+        "qual a avaliação do produto 1?"
+      ],
+      "responses": [
+        "Sim, o produto 1 é muito bom. Ele tem nota 4.5 em nossa loja online."
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "name": "produto",
+      "patterns": ["produto 1", "item 1"]
+    }
+  ]
+}
