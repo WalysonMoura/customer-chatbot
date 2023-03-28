@@ -1,7 +1,8 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 
-const sendinblueApi = axios.create({
+const sendinblueApi: AxiosInstance = axios.create({
   baseURL: "https://api.sendinblue.com/v3/",
 });
 
 export default sendinblueApi;
+
