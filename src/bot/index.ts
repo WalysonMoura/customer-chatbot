@@ -1,4 +1,3 @@
-
 import { create, Message, Whatsapp, CreateOptions } from "venom-bot";
 import axios from "axios";
 
@@ -11,7 +10,7 @@ export class WhatsAppBot {
     const options: CreateOptions = {
       session: "webhook-whatsapp",
       multidevice: true,
-      autoClose: false,
+      autoClose: 0 | false,
       // path: './data',
       // puppeteerOptions: { args: ["--no-sandbox"] }, // configurações do Puppeteer
     };
