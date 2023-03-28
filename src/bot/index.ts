@@ -77,11 +77,11 @@ export class WhatsAppBot {
     const options: CreateOptions = {
       session: "webhook-whatsapp",
       multidevice: true,
+      autoClose: false,
       // path: './data',
       // puppeteerOptions: { args: ["--no-sandbox"] }, // configurações do Puppeteer
     };
 
-    //const client: Whatsapp = await create(options);
     this.client = await create(options);
 
     // Espera até que a sessão do WhatsApp esteja iniciada
@@ -90,11 +90,10 @@ export class WhatsAppBot {
     this.client.onMessage(this.handleMessage);
     this.client.onIncomingCall(this.handleIncomingCall);
 
-    // Finaliza a sessão do WhatsApp
-    // await this.client.close();
-
-    // Finaliza a sessão do WhatsApp
-    // await client.close();
+    // Capturando o evento SIGINT
+    process.on("SIGINT", () => {
+      this.client.close();
+    });
   }
 
   private handleMessage = async (message: Message) => {

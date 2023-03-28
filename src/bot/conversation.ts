@@ -47,6 +47,10 @@ export async function Conversation(client: Whatsapp, message: Message) {
       await handleBreakingObjections(message);
       break;
 
+    case "startNlpManagerConversation":
+      await askNlpManagerConversation(message);
+      break;
+
     default:
       await askNlpManagerConversation(message);
       break;
@@ -120,6 +124,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
       );
       await client.sendText(senderId, "Qual o seu Nome?");
     } else {
+      conversationState.step = "startNlpManagerConversation"
       await askNlpManagerConversation(message);
     }
   }
