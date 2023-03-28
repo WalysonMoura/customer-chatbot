@@ -59,8 +59,6 @@ export async function Conversation(client: Whatsapp, message: Message) {
       chatId: senderNumber,
     } = message;
 
-   
-
     if (
       senderMessage ==
       "Olá, gostei muito de um produto das suas redes sociais!. Quero saber mais sobre ele!"
@@ -94,7 +92,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
         .catch((error) => {
           console.error("Error:", error);
         });
-console.log(senderNumber);
+      console.log(senderNumber);
 
       await SimulateTyping(client, senderNumber, 1);
       await client.sendText(

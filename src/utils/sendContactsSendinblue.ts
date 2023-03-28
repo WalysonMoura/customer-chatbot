@@ -1,5 +1,5 @@
 import axios from "axios";
-import sendinblueApi from "../service/sendinblueApi.ts";
+import sendinblueApi from "../service/sendinblueApi";
 /*
 import {
   Client,
@@ -64,7 +64,7 @@ function checkContactExisting(senderNumber: string) {
 function addNewContact(senderName, senderNumber, senderProductName) {
   const productName = senderProductName.replace(/\s+/g, "-");
   const tags = ["novo-cliente", productName];
-  const listIds = [1, 2];
+  const listIds = [1];
 
   const newContact = {
     attributes: {
