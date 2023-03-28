@@ -1,4 +1,3 @@
-//import { NlpManager } from "@nlpjs/nlp";
 import { NeuralNetwork } from "@nlpjs/neural";
 import { NlpManager } from 'node-nlp';
 
