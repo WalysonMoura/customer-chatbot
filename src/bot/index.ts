@@ -10,7 +10,7 @@ export class WhatsAppBot {
     const options: CreateOptions = {
       session: "webhook-whatsapp",
       multidevice: true,
-      autoClose: 0 | false,
+      autoClose: 0,
       // path: './data',
       // puppeteerOptions: { args: ["--no-sandbox"] }, // configurações do Puppeteer
     };
