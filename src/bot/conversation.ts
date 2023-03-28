@@ -189,9 +189,9 @@ export async function Conversation(client: Whatsapp, message: Message) {
     const productName = getProductName(senderMessage);
 
     if (productName) {
-      conversationState.senderProductName = await productName;
+      conversationState.senderProductName = getProductName(senderMessage);
       conversationState.senderProduct = await getProduct(
-        conversationState.senderProductName
+        senderProductName
       );
       await sendContactsSendinblue(senderName, senderNumber, senderProductName);
 
