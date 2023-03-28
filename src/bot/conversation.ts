@@ -19,7 +19,7 @@ interface ConversationState {
   country?: string;
   state?: string;
   senderName?: string;
-  senderProduct?: IProduct;
+  senderProduct?:  Promise<IProduct>;
   senderProductName?: string;
 }
 const conversationState: ConversationState = { step: "initialize" };
