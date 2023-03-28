@@ -42,7 +42,7 @@ export async function sendContactsSendinblue(
   }
 }
 
-function checkContactExisting(senderNumber: string) {
+async function checkContactExisting(senderNumber: string) {
   try {
     const getContactInfoRequest = await axios.get(
       `/contacts/${senderNumber}`,
@@ -61,7 +61,7 @@ function checkContactExisting(senderNumber: string) {
   }
 }
 
-function addNewContact(senderName, senderNumber, senderProductName) {
+async function addNewContact(senderName, senderNumber, senderProductName) {
   const productName = senderProductName.replace(/\s+/g, "-");
   const tags = ["novo-cliente", productName];
   const listIds = [1];
