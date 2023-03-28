@@ -10,7 +10,7 @@ import { nlpManagerConversation } from "./nlp/";
 
 import { getButtonProducts } from "./templates/ButtonProducts";
 import { MenuButtons } from "./templates/MenuButtons";
-import { sendPurchaseButtons } from "./templates/sendPurchaseButtons";
+import { sendPurchaseButton } from "./templates/sendPurchaseButton";
 
 interface ConversationState {
   step: string;
@@ -70,7 +70,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
     ) {
       conversationState.step = "askSenderNameAndProductName";
 
-      await sendPurchaseButtons(
+      await sendPurchaseButton(
         client,
         senderNumber,
         "",
