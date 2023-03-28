@@ -10,6 +10,7 @@ import { nlpManagerConversation } from "./nlp/";
 
 import { getButtonProducts } from "./templates/ButtonProducts";
 import { MenuButtons } from "./templates/MenuButtons";
+import { sendPurchaseButtons } from "./templates/sendPurchaseButtons";
 
 interface ConversationState {
   step: string;
@@ -68,6 +69,14 @@ export async function Conversation(client: Whatsapp, message: Message) {
       "Olá, gostei muito de um produto das suas redes sociais!. Quero saber mais sobre ele!"
     ) {
       conversationState.step = "askSenderNameAndProductName";
+
+      await sendPurchaseButtons(
+        client,
+        senderNumber,
+        "",
+        "",
+        ""
+      );
       await SimulateTyping(client, senderNumber, 3);
       await client.sendText(
         senderId,
@@ -124,8 +133,8 @@ export async function Conversation(client: Whatsapp, message: Message) {
       );
       await client.sendText(senderId, "Qual o seu Nome?");
     } else {
-      conversationState.step = "startNlpManagerConversation"
-      await askNlpManagerConversation(message);
+      //conversationState.step = "startNlpManagerConversation"
+      //await askNlpManagerConversation(message);
     }
   }
 
