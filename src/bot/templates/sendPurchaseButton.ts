@@ -17,7 +17,7 @@ export async function sendPurchaseButton(
     ],
   };
 
-  await client.sendButtonsTemplate(
+  await client.sendButtons(
     senderNumber,
     `${productName}`,
     message.buttons,
