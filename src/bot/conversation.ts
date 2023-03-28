@@ -189,7 +189,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
     const productName = getProductName(senderMessage);
 
     if (productName) {
-      conversationState.senderProductName = getProductName(senderMessage);
+      senderProductName = getProductName(senderMessage);
       conversationState.senderProduct = await getProduct(
         senderProductName
       );
