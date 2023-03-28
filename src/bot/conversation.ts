@@ -152,6 +152,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
     conversationState.senderProduct = await getProduct(
       conversationState.senderProductName
     );
+    await sendContactsSendinblue(senderName, senderNumber, senderProductName);
     await SimulateTyping(client, senderNumber, 2);
     await client.sendText(
       message.from,
@@ -189,9 +190,9 @@ export async function Conversation(client: Whatsapp, message: Message) {
     const productName = getProductName(senderMessage);
 
     if (productName) {
-      senderProductName = getProductName(senderMessage);
+      conversationState.senderProductName = await productName;
       conversationState.senderProduct = await getProduct(
-        senderProductName
+        conversationState.senderProductName
       );
       await sendContactsSendinblue(senderName, senderNumber, senderProductName);
 
