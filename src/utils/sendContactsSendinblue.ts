@@ -22,7 +22,7 @@ const sendinblueApiConfig = {
   },
 };
 
-export function sendContactsSendinblue(
+export async function sendContactsSendinblue(
   senderName: string,
   senderNumber: string,
   senderProductName: string

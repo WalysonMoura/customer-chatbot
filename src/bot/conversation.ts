@@ -5,6 +5,7 @@ import { SimulateRecordingAudio } from "../utils/SimulateRecordingAudio";
 import { getProductName, getProduct } from "../utils/productInformation";
 import { customerNameValidation } from "../utils/customerNameValidation";
 import { IProduct } from "../utils/products";
+import { sendContactsSendinblue } from "../utils/sendContactsSendinblue";
 
 import { nlpManagerConversation } from "./nlp/";
 
@@ -24,8 +25,15 @@ interface ConversationState {
 const conversationState: ConversationState = { step: "initialize" };
 
 export async function Conversation(client: Whatsapp, message: Message) {
-  const { step, answer, country, state, senderName, senderProduct } =
-    conversationState;
+  const {
+    step,
+    answer,
+    country,
+    state,
+    senderName,
+    senderProduct,
+    senderProductName,
+  } = conversationState;
 
   switch (step) {
     case "initialize":
@@ -70,7 +78,6 @@ export async function Conversation(client: Whatsapp, message: Message) {
     ) {
       conversationState.step = "askSenderNameAndProductName";
 
-    
       await SimulateTyping(client, senderNumber, 3);
       await client.sendText(
         senderId,
@@ -148,7 +155,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
     await SimulateTyping(client, senderNumber, 2);
     await client.sendText(
       message.from,
-      `Olá ${conversationState.senderName}.Excelente escolha! o ${conversationState.senderProductName}`
+      `Olá ${senderName}.Excelente escolha! o ${senderProductName}`
     );
   }
 
@@ -182,14 +189,15 @@ export async function Conversation(client: Whatsapp, message: Message) {
     const productName = getProductName(senderMessage);
 
     if (productName) {
-      conversationState.senderProductName = await productName;
+      conversationState.senderProductName = productName;
       conversationState.senderProduct = await getProduct(
         conversationState.senderProductName
       );
+      await sendContactsSendinblue(senderName, senderNumber, senderProductName);
 
       await client.sendText(
         senderId,
-        `Olá ${conversationState.senderName}.Excelente escolha! o ${conversationState.senderProduct}`
+        `Olá ${senderName}.Excelente escolha! o ${senderProductName}`
       );
     }
 
