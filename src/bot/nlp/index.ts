@@ -1,7 +1,7 @@
 //import { NlpManager } from "@nlpjs/nlp";
 import { NeuralNetwork } from "@nlpjs/neural";
+import { NlpManager } from 'node-nlp';
 
-const { NlpManager } = require("@nlpjs/nlp");
 
 import { addDocuments } from "./addDocuments";
 import { addAnswers } from "./addAnswers";
