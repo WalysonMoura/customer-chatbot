@@ -1,6 +1,6 @@
 import { Whatsapp } from "venom-bot";
 
-export async function purchaseButtonTemplate(
+export async function sendPurchaseButtons(
   client: Whatsapp,
   senderNumber,
   productName,
