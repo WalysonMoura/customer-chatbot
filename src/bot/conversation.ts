@@ -19,7 +19,7 @@ interface ConversationState {
   country?: string;
   state?: string;
   senderName?: string;
-  senderProduct?:  Promise<IProduct>;
+  senderProduct?: IProduct;
   senderProductName?: string;
 }
 const conversationState: ConversationState = { step: "initialize" };
@@ -187,13 +187,14 @@ export async function Conversation(client: Whatsapp, message: Message) {
       chatId: senderNumber,
     } = message;
 
-    const productName = getProductName(senderMessage);
+    const productName = await getProductName(senderMessage);
 
     if (productName) {
       conversationState.senderProductName = productName;
       conversationState.senderProduct = await getProduct(
         conversationState.senderProductName
       );
+
       await sendContactsSendinblue(senderName, senderNumber, senderProductName);
 
       await client.sendText(
