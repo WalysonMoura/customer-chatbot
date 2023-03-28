@@ -70,13 +70,7 @@ export async function Conversation(client: Whatsapp, message: Message) {
     ) {
       conversationState.step = "askSenderNameAndProductName";
 
-      await sendPurchaseButton(
-        client,
-        senderNumber,
-        "",
-        "",
-        ""
-      );
+    
       await SimulateTyping(client, senderNumber, 3);
       await client.sendText(
         senderId,
