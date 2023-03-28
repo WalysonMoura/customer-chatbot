@@ -1,5 +1,4 @@
 import { NeuralNetwork } from "@nlpjs/neural";
-import { Sentiment } from '@nlpjs/sentiment';
 import { NlpManager, ConversationContext } from "node-nlp";
 
 import { addDocuments } from "./addDocuments";
@@ -11,9 +10,6 @@ const nlpManager = new NlpManager({
   forceNER: true,
 });
 
-// Adicionando o módulo de análise de sentimento
-const sentiment = new Sentiment();
-nlpManager.container.use(sentiment);
 
 // Ajustando a taxa de aprendizagem e número máximo de épocas
 nlpManager.addLanguage("pt");
