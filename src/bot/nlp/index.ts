@@ -23,6 +23,9 @@ export async function nlpManagerConversation(senderMessage: string) {
   //await addDocuments(nlpManager);
  // await addAnswers(nlpManager);
 
+ await nlpManager.addCorpus('./corpus-produto1.json');
+ await nlpManager.addCorpus('./corpus-produto2.json');
+ /*
   await nlpManager.loadCorpora([
     {
       locale: "pt",
@@ -35,6 +38,7 @@ export async function nlpManagerConversation(senderMessage: string) {
       sources: [{ filename: "corpus-produto2.json" }],
     },
   ]);
+  */
   await nlpManager.train();
   await nlpManager.save();
 
