@@ -23,7 +23,6 @@ export class WhatsAppBot {
     this.client.onMessage(this.handleMessage);
     this.client.onIncomingCall(this.handleIncomingCall);
 
-    // Capturando o evento SIGINT
     process.on("SIGINT", () => {
       this.client.close();
     });
