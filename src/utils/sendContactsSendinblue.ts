@@ -64,7 +64,7 @@ async function checkContactExisting(senderNumber: string) {
 async function addNewContact(senderName, senderNumber, senderProductName) {
   const productName = senderProductName.replace(/\s+/g, "-");
   const tags = ["novo-cliente", productName];
-  const listIds = [1];
+  const listIds = [7];
 
   const newContact = {
     attributes: {
