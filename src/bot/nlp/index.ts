@@ -5,8 +5,8 @@ import { NlpManager, ConversationContext } from "node-nlp";
 import { addDocuments } from "./addDocuments";
 import { addAnswers } from "./addAnswers";
 
-const corpus1 = path.resolve(__dirname, './corpusProducts/corpus-produto1.json');
-const corpus2 = path.resolve(__dirname, './corpusProducts/corpus-produto2.json');
+//const corpus1 = path.resolve(__dirname, './corpusProducts/corpus-produto1.json');
+//const corpus2 = path.resolve(__dirname, './corpusProducts/corpus-produto2.json');
 
 
 const nlpManager = new NlpManager({
