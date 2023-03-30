@@ -1,11 +1,13 @@
 import { NeuralNetwork } from "@nlpjs/neural";
 import { NlpManager, ConversationContext } from "node-nlp";
 
-import "./corpusProducts/corpus-produto1.json"
-import "./corpusProducts/corpus-produto2.json"
 
 import { addDocuments } from "./addDocuments";
 import { addAnswers } from "./addAnswers";
+
+const corpus1 = path.resolve(__dirname, './corpusProducts/corpus-produto1.json');
+const corpus2 = path.resolve(__dirname, './corpusProducts/corpus-produto2.json');
+
 
 const nlpManager = new NlpManager({
   languages: ["pt"],
@@ -23,8 +25,8 @@ export async function nlpManagerConversation(senderMessage: string) {
   //await addDocuments(nlpManager);
  // await addAnswers(nlpManager);
 
- await nlpManager.addCorpus('./corpus-produto1.json');
- await nlpManager.addCorpus('./corpus-produto2.json');
+ await nlpManager.addCorpus('./corpusProducts/corpus-produto1.json');
+ await nlpManager.addCorpus('./corpusProducts/corpus-produto2.json');
  /*
   await nlpManager.loadCorpora([
     {
