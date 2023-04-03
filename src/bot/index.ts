@@ -31,7 +31,7 @@ export class WhatsAppBot {
   private handleMessage = async (message: Message) => {
     const senderNumber = message.chatId;
 
-    const chats = await this.client.getChat();
+    const chats = await this.client.getChats();
     
 
     const myGroupChat = chats.find(
