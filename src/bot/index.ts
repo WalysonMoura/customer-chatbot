@@ -31,7 +31,7 @@ export class WhatsAppBot {
   private handleMessage = async (message: Message) => {
     const senderNumber = message.chatId;
 
-    const chats = await this.client.getChatList();
+    const chats = await this.client.getChat();
     const myGroupChat = chats.find((chat) =>
       chat.name.includes("itapebuçu")
     );
