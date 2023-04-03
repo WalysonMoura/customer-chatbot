@@ -32,10 +32,13 @@ export class WhatsAppBot {
     const senderNumber = message.chatId;
 
     const chats = await this.client.getChat();
-    const myGroupChat = chats.find((chat) =>
-      chat.name.includes("itapebuçu")
+    
+
+    const myGroupChat = chats.find(
+      (chat) => chat.name && chat.name.includes("Nome do meu grupo")
     );
     const groupId = myGroupChat && myGroupChat.id._serialized;
+
     console.log(groupId);
 
     if (!message.isGroupMsg) {
