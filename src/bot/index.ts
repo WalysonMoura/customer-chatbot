@@ -31,8 +31,10 @@ export class WhatsAppBot {
   private handleMessage = async (message: Message) => {
     const senderNumber = message.chatId;
 
-    const chats = await this.client.getChats();
-    const myGroupChat = chats.find((chat) => chat.name === "Nome do meu grupo");
+    const chats = await this.client.getChatList();
+    const myGroupChat = chats.find((chat) =>
+      chat.name.includes("Nome do meu grupo")
+    );
     const groupId = myGroupChat && myGroupChat.id._serialized;
     console.log(groupId);
 
